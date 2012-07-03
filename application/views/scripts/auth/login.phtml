@@ -25,7 +25,7 @@
                         window.location.reload();
                     }
                     else {
-                        if (typeof json.msgs == "array"){
+                        if (json.msgs instanceof Array){
                             var c = json.msgs.length;
                             for (var i=0; i<c; i++){
                                 $("#password").showErr(json.msgs[i]);
