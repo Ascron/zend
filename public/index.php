@@ -1,5 +1,9 @@
 <?php
 
+//uncomment this line
+//if your library is not connected
+//set_include_path('PATH_TO_ZEND_LIBRARY');
+
 // Define path to application directory
 defined('APPLICATION_PATH')
     || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../application'));
