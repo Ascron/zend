@@ -1,0 +1,43 @@
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#form').submit(function(e){
+            $("#form ul.errors").empty();
+
+            var noErrors = true;
+
+            //check field length
+            $("#login, #password").each(function(i, elem){
+                elem = $(elem);
+                if (elem.val().length<3 || elem.val().length>30){
+                    noErrors = false;
+                    elem.showErr('Length must be between 3 and 30 symbols.');
+                }
+            });
+
+            if (!/^[a-z\-]+$/i.test($("#login").val())){
+                noErrors = false;
+                $("#login").showErr('You can use only a-z or A-Z symbols.');
+            }
+
+            if (noErrors){
+                $.post(window.location, $("#form").serialize(), function(json){
+                    if (json.status){
+                        window.location.reload();
+                    }
+                    else {
+                        for (id in json.msgs){
+                            for (msg in json[id]){
+                                $('#'+id).showErr(json[id][msg])
+                            }
+                        }
+                    }
+                }, 'json');
+            }
+
+            return false;
+        });
+    });
+</script>
+<h1><?php echo $this->title; ?></h1>
+
+<?php echo $this->form;

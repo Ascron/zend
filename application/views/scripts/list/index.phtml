@@ -1,0 +1,6 @@
+<h1><?php echo $this->title; ?></h1>
+<ul>
+    <?php foreach ($this->entries as $entry): ?>
+    <li><?php echo $this->escape($entry->fname), ' ', $this->escape($entry->lname), ' ', $this->escape($entry->regdate) ?></li>
+    <?php endforeach; ?>
+</ul>

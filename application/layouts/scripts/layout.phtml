@@ -1,0 +1,13 @@
+<!DOCTYPE HTML>
+<html lang="ru-RU">
+<head>
+    <meta charset="UTF-8">
+    <title><?php echo $this->title; ?></title>
+    <script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/js/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/js/script.js"></script>
+</head>
+<body>
+    <div><?php if (Zend_Auth::getInstance()->hasIdentity()): ?><a href="<?php echo $this->baseUrl(); ?>/auth/logout">Logout</a><?php else: ?><a href="<?php echo $this->baseUrl(); ?>/auth/login">Login</a> | <a href="<?php echo $this->baseUrl(); ?>/reg">Reg</a><?php endif; ?></div>
+    <?php echo $this->layout()->content; ?>
+</body>
+</html>

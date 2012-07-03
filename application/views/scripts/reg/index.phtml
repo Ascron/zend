@@ -1,0 +1,59 @@
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#form').submit(function(e){
+            $("#form ul.errors").empty();
+
+            var noErrors = true;
+
+            //check field length
+            $("#fname, #lname, #login, #email, #password, #pass2").each(function(i, elem){
+                elem = $(elem);
+                if (elem.val().length<3 || elem.val().length>30){
+                    noErrors = false;
+                    elem.showErr('Length must be between 3 and 30 symbols.');
+                }
+            });
+
+            //check by pattern
+            $("#fname, #lname, #login").each(function(i, elem){
+                elem = $(elem);
+                if (!/^[a-z\-]+$/i.test(elem.val())){
+                    noErrors = false;
+                    elem.showErr('You can use only a-z or A-Z symbols.');
+                }
+            });
+
+            //check pass confirmation
+            if ($("#password").val()!=$("#pass2").val()){
+                noErrors = false;
+                $("#pass2").showErr('Password confirmation does not match.');
+            }
+
+            //check email
+            if (!/^[a-z\-]+@[a-z]+\.[a-z]{2,3}$/i.test($("#email").val())){
+                noErrors = false;
+                $("#email").showErr('You enter invalid email.');
+            }
+
+            if (noErrors){
+                $.post(window.location, $("#form").serialize(), function(json){
+                    if (json.status){
+                        $('body h1').after('<p>You have successfully registered.</p>')
+                    }
+                    else {
+                        for (id in json.msgs){
+                            for (msg in json[id]){
+                                $('#'+id).showErr(json[id][msg])
+                            }
+                        }
+                    }
+                }, 'json');
+            }
+
+            return false;
+        });
+    });
+</script>
+<h1><?php echo $this->title; ?></h1>
+<p>All fields are required.</p>
+<?php echo $this->form;
