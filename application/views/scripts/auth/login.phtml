@@ -25,11 +25,20 @@
                         window.location.reload();
                     }
                     else {
-                        for (id in json.msgs){
-                            for (msg in json.msgs[id]){
-                                $('#'+id).showErr(json.msgs[id][msg])
+                        if (typeof json.msgs == "array"){
+                            var c = json.msgs.length;
+                            for (var i=0; i<c; i++){
+                                $("#password").showErr(json.msgs[i]);
                             }
                         }
+                        else if (typeof json.msgs == "object"){
+                            for (id in json.msgs){
+                                for (msg in json.msgs[id]){
+                                    $('#'+id).showErr(json.msgs[id][msg])
+                                }
+                            }
+                        }
+
                     }
                 }, 'json');
             }
