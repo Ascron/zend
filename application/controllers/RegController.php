@@ -12,12 +12,9 @@ class RegController extends Zend_Controller_Action
         else {
             $this->view->title = 'Registration';
         }
-    }
 
-    public function preDispatch()
-    {
         if (Zend_Auth::getInstance()->hasIdentity()){
-            $this->_forward('index','list');
+            $this->_redirect('/list');
         }
     }
 
