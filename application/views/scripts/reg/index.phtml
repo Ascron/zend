@@ -42,8 +42,8 @@
                     }
                     else {
                         for (id in json.msgs){
-                            for (msg in json[id]){
-                                $('#'+id).showErr(json[id][msg])
+                            for (msg in json.msgs[id]){
+                                $('#'+id).showErr(json.msgs[id][msg])
                             }
                         }
                     }
